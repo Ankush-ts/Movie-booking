@@ -28,7 +28,7 @@ const Header = () => {
         // Sending bookings data to backend
         
     try {
-        // Send bookings data using Axios
+        // Send bookings data using Axios to create new abooking
         await axios.post('/api/booking/', {
             movie: selectedMovie,
             slot: selectedSlot,
@@ -45,6 +45,7 @@ const Header = () => {
         
     };
 
+    //Updates the seatNumbers state object whenever a user modifies the number of seats for a specific seat type.
     const handleSeatChange = (seat, newNumber) => {
         setSeatNumbers((prevSeatNumbers) => ({ ...prevSeatNumbers, [seat]: newNumber }));
       };
