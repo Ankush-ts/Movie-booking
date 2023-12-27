@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 
-
-const mongoURI = "mongodb://localhost:27017/" + "bookMovie"
+//local mongo url : mongodb://localhost:27017/
+const mongoURI = process.env.MONGODB_URL + 'bookMovie'
 
 let mongoose = require('mongoose');
 const { bookMovieSchema } = require('./schema')
