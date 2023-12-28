@@ -23,13 +23,14 @@ app.use(express.json());
 app.post("/api/booking", async (req, res) => {
   try {
     const { movie, slot, seats } = req.body;
-    
+
     //validation check
-    if (!movie || movie.trim() === "" &&
-      !slot || slot.trim() === "" &&
-      !seats === ""
+    if (!movie || movie.trim() === "" ||
+      !slot || slot.trim() === "" ||
+      !seats || seats === null ||
+      Object.keys(seats).length === 0
     ) {
-      throw new ValidationError('Invalid Inputs');
+      throw new ValidationError('Invalid Inputs: Movie, slot, and seats are required.');
     }
 
     const newBooking = new connection({ movie, slot, seats });
