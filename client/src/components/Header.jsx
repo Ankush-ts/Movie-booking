@@ -29,11 +29,7 @@ const Header = () => {
         
     try {
         // Send bookings data using Axios to create new abooking
-        await axios.post('/api/booking/', {
-            movie: selectedMovie,
-            slot: selectedSlot,
-            seats: seatNumbers 
-        });
+        await axios.post('/api/booking/', booking);
   
         // Clear fields after successful submission
         setSelectedMovie('');
