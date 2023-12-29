@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
 
-//local mongo url : mongodb://localhost:27017/
+// const mongoURI= "mongodb://localhost:27017/" + "bookMovie"
 const mongoURI = `mongodb+srv://ankushrana9458:${process.env.MONGODB_PWD}@cluster0.38osesy.mongodb.net/?retryWrites=true&w=majority`;
 
 
