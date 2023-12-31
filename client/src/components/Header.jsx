@@ -16,7 +16,7 @@ const Header = () => {
 
 
 
-
+// SUbmitting data on Book now
     const handleSubmit = async(event) => {
         event.preventDefault(); 
         const booking = {
@@ -29,7 +29,11 @@ const Header = () => {
         
     try {
         // Send bookings data using Axios to create new abooking
-        await axios.post('/api/booking/', booking);
+        await axios.post('/api/booking/', {
+            movie: selectedMovie,
+            slot: selectedSlot,
+            seats: seatNumbers 
+        });
   
         // Clear fields after successful submission
         setSelectedMovie('');

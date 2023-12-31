@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-axios.defaults.baseURL = "https://movie-booking-back.onrender.com";
+axios.defaults.baseURL = "https://movie-booking-back.onrender.com/";
 root.render(
   <React.StrictMode>
     <App />

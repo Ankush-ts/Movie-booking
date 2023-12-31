@@ -9,7 +9,7 @@ const LastBookingDetails = memo(() => {
   useEffect(() => {
     getAllBookings().then(setBookings)
       .catch((err) => console.log(err));
-  }, []);
+  }, [bookings]);
   console.log();
 
 
