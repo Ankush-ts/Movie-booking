@@ -10,27 +10,25 @@ const LastBookingDetails = memo(() => {
     getAllBookings().then(setBookings)
       .catch((err) => console.log(err));
   }, [bookings]);
-  console.log();
+
 
 
 
   return (
-   
     <div className='last-order'>
       <Box>
         <h4>Last Booking Details</h4>
         {bookings?.length > 0 ? (
-
-          <Typography key={bookings.length - 1}>
-            <li>Seats:</li>
+          <div key={bookings.length - 1}>
+            <Typography component="li">Seats:</Typography>
             <ul>
               {Object.entries(bookings[bookings.length - 1].seats).map(([seat, availability]) => (
                 <li key={seat}>{seat}: {availability}</li>
               ))}
             </ul>
-            <li>Slot: {bookings[bookings.length - 1].slot}</li>
-            <li>Movie: {bookings[bookings.length - 1].movie}</li>
-          </Typography>
+            <Typography component="li">Slot: {bookings[bookings.length - 1].slot}</Typography>
+            <Typography component="li">Movie: {bookings[bookings.length - 1].movie}</Typography>
+          </div>
         ) : (
           <h5>No Last Bookings</h5>
         )}

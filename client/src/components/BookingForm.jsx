@@ -2,59 +2,62 @@ import React, { useState } from 'react';
 import { Box, Button, FormLabel, TextField, Typography } from '@mui/material'
 import { movies, seats, slots } from '../data';
 import LastBookingDetails from './LastBookingDetails';
-// import { newBooking } from '../api-helpers/api';
-import axios from 'axios';
+import { newBooking } from '../api-helpers/api';
+import { toast } from 'react-toastify';
 
 
 
-const Header = () => {
+const BookingForm = () => {
 
     const [selectedMovie, setSelectedMovie] = useState('');
     const [selectedSlot, setSelectedSlot] = useState('');
     const [seatNumbers, setSeatNumbers] = useState({});
-    
 
 
 
-// SUbmitting data on Book now
-    const handleSubmit = async(event) => {
-        event.preventDefault(); 
+
+    // SUbmitting data on Book now
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         const booking = {
             movie: selectedMovie,
             slot: selectedSlot,
-            seats: seatNumbers
+            seats: seatNumbers,
         };
-        console.log(booking)
-        // Sending bookings data to backend
-        
-    try {
-        // Send bookings data using Axios to create new abooking
-        await axios.post('/api/booking/', {
-            movie: selectedMovie,
-            slot: selectedSlot,
-            seats: seatNumbers 
-        });
-  
-        // Clear fields after successful submission
-        setSelectedMovie('');
-        setSelectedSlot('');
-        setSeatNumbers({});
-      } catch (error) {
-        console.error('Error sending booking data:', error);
-      }
-        
+
+        try {
+            const response = await newBooking(booking);
+            console.log(response);
+            toast.success('Booking Successful!');
+
+            // Clear fields after successful booking
+            handleClear();
+        } catch (error) {
+            console.error(error);
+            toast.error('Booking Failed! Please check details and try again.'); // error message
+        }
+
     };
 
     //Updates the seatNumbers state object whenever a user modifies the number of seats for a specific seat type.
     const handleSeatChange = (seat, newNumber) => {
         setSeatNumbers((prevSeatNumbers) => ({ ...prevSeatNumbers, [seat]: newNumber }));
-      };
+    };
+
+    const handleClear = () => {
+        setSelectedMovie('');
+        setSelectedSlot('');
+        setSeatNumbers({});
+    };
+
     return (
         <Box display={'flex'}>
             <Box width={'70%'}>
                 <form onSubmit={handleSubmit}>
+
+                    {/* movie row */}
                     <div className='movie-row'>
-                        <Typography type
+                        <Typography
                         >Select A Movie</Typography>
                         {movies.map((movie, i) => (
                             <div className="movie-column" key={i}
@@ -68,6 +71,8 @@ const Header = () => {
                         ))}
 
                     </div>
+
+                    {/* slot row */}
                     <div className='slot-row'>
                         <Typography>Select a Time slot</Typography>
                         {slots.map((slot, i) => (
@@ -81,12 +86,12 @@ const Header = () => {
                         ))}
                     </div>
 
-
+                    {/* seat row */}
                     <div className='seat-row'>
                         <Typography>Select Seats</Typography>
                         {seats.map((seat, i) => (
                             <Box width="10%" className="seat-column" key={i}
-                               
+
                             >
                                 <FormLabel  >{seat}</FormLabel>
                                 <TextField
@@ -99,10 +104,11 @@ const Header = () => {
 
                         ))}
                     </div>
+
+
                     <div className="book-button">
-                        <Button 
-                         
-                        type="submit" >
+                        <Button
+                            type="submit" >
                             Book Now
                         </Button>
                     </div>
@@ -116,4 +122,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default BookingForm;
